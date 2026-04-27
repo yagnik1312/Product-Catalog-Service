@@ -1,0 +1,1 @@
+ALTER TABLE review RENAME COLUMN comments TO comment;

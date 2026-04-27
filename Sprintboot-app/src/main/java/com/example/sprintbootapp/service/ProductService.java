@@ -1,15 +1,13 @@
 package com.example.sprintbootapp.service;
 
-import com.example.sprintbootapp.dto.ProductDTO;
 import com.example.sprintbootapp.mapper.ProductMapper;
 import com.example.sprintbootapp.model.Product;
 import com.example.sprintbootapp.repository.ProductRepository;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Service
 public class ProductService {
@@ -23,8 +21,8 @@ public class ProductService {
     public String getMessage() {
         return "Product Service Working";
     }
-    public List<Product> getAllProducts() {
-        return repository.findAll();
+    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
+        return repository.findAll(PageRequest.of(pageNumber, pageSize));
     }
 
     public Product save(Product product) {
