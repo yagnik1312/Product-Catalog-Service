@@ -1,4 +1,5 @@
 package com.example.sprintbootapp.dto;
+import com.example.sprintbootapp.model.Review;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

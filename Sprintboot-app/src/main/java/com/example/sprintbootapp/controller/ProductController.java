@@ -1,7 +1,9 @@
 package com.example.sprintbootapp.controller;
 
+import com.example.sprintbootapp.dto.ProductAndReviewDTO;
 import com.example.sprintbootapp.dto.ProductDTO;
 import com.example.sprintbootapp.mapper.ProductMapper;
+import com.example.sprintbootapp.mapper.ReviewMapper;
 import com.example.sprintbootapp.model.Product;
 import com.example.sprintbootapp.service.ProductService;
 import jakarta.validation.Valid;
@@ -20,6 +22,9 @@ public class ProductController {
     @Autowired
     private ProductMapper mapper;
 
+    @Autowired
+    private ReviewMapper reviewMapper;
+
     public ProductController() {
     }
 
@@ -37,6 +42,15 @@ public class ProductController {
     @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDTO productData) {
         Product product = service.save(mapper.productDTOToProduct(productData));
+        return ResponseEntity.ok(product);
+    }
+    @PostMapping("/products-review")
+    public ResponseEntity<Product> createProductAndReview(@Valid @RequestBody ProductAndReviewDTO productAndReviewData) {
+        Product product = service.createProductWithReviews(mapper.productDTOToProduct(productAndReviewData.getProduct()),
+                productAndReviewData.getReviews().stream()
+                        .map(reviewMapper::reviewDTOToReview)
+                        .toList()
+        );
         return ResponseEntity.ok(product);
     }
 
