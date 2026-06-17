@@ -50,4 +50,9 @@ public class ProductService {
 
     }
 
+    public Product getProductById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+    }
+
 }
